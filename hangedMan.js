@@ -4,12 +4,12 @@
 // #                                                                                                   #
 // #####################################################################################################
 const figlet = require('figlet');
-const prompt = require("prompt-sync")({ sigint: true });
+const prompt = require("prompt-sync")({ sigint: true }); // Make sure to install prompt-sync with |-> npm i prompt-sync <-|
 let wordToBeGuessed = "testword";
 let currentCensoredWord = "";
 let isGameEnded = false;
 let attemptsLeft = 10;
-oldGuessesList =[];
+let oldGuessesList = [];
 
 // #####################################################################################################
 // #                                                                                                   #
@@ -26,7 +26,7 @@ const main = () => {
         const userInput = play();
         checkUserInput(userInput);
         attemptsLeft--;
-        if (attemptsLeft===0){
+        if (attemptsLeft === 0){
             lose();
         }
     }
@@ -72,12 +72,12 @@ const checkUserInput = (guess) => {
     if (guess === wordToBeGuessed.toLowerCase()){ // Bonus - excepts the full word as a win, other words will not loss a turn for the player
         win();
     }
-    if (guess.length > 1) {
+    else if (guess.length > 1) {
         console.log("Please enter only one character");
         attemptsLeft++;
         return;
     }
-    if (wordToBeGuessed.toLowerCase().includes(guess)) {
+    else if (wordToBeGuessed.toLowerCase().includes(guess)) {
         reveal(guess);
     }
 
@@ -97,7 +97,7 @@ const lose = () => {
 
 //  After getting a valid input from the user this is the logic of the turn
 const reveal = (char) => {
-    isMatchingLetterFound = false;
+    let isMatchingLetterFound = false;
     if(oldGuessesList.includes(char)){ // Checks if the letter already been found by the user and inform him if it was
         console.log(`Already guessed: \x1b[31m${char}\x1b[0m`);
         attemptsLeft++;
